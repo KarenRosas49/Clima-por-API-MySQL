@@ -97,6 +97,14 @@ Al bloque humedad, agregarle es siguiente código:
 
 >return msg;
 Al final de cada bloque **function** agregar un bloque **chart** para observar la información de las personas que envíen datos.
+
+### MySQL
+**Instalar MySQL Server**
+1. Abrir la terminal y escribir los siguientes comandos en el orden presentado:
+`sudo apt update`
+`sudo apt install mysql-server`
+2. Una vez instalado, se debe configurar la base de datos con la que trabajaremos para nuestro ejercicio. Para ello, se debe abrir MySQL con el comando 
+
 5. Finalmente, dar click en el botón **Deploy** para que se actualicen los cambios. 
 
 ## Resultados
