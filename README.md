@@ -168,7 +168,7 @@ El flow en Node Red debe verse como el mostrado a continuación:
 ![Captura de pantalla](Captura_2.png)
 
 ## Evidencias
-[Evidencia MySQL Clima]()
+[Evidencia MySQL Clima](https://youtu.be/OWASUKxqXrs)
 
 ## Créditos
 Este ejercicio fue basado en los ejercicios que se encuentran en el repositorio [clima por API](https://github.com/hugoescalpelo/clima-mysql)
