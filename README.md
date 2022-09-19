@@ -101,25 +101,76 @@ Al final de cada bloque **function** agregar un bloque **chart** para observar l
 ### MySQL
 **Instalar MySQL Server**
 1. Abrir la terminal y escribir los siguientes comandos en el orden presentado:
-`sudo apt update`
-`sudo apt install mysql-server`
-2. Una vez instalado, se debe configurar la base de datos con la que trabajaremos para nuestro ejercicio. Para ello, se debe abrir MySQL con el comando 
 
+`sudo apt update`
+
+`sudo apt install mysql-server`
+2. Una vez instalado, se debe configurar la base de datos con la que trabajaremos para nuestro ejercicio. Para ello, se debe abrir MySQL con el comando `sudo mysql` y configurar la base de datos con el comando `create database codigoIoT`.
+3. Para comenzar a trabajar sobre esa base de datos colocar el comando `use codigoIoT`.
+4. Crear un usuario
+ con `create user 'USUARIO'@'localhost' identified by 'CONTRASEÑA'` y otorgar todos los permisos `grant all privileges on *.* to 'USUARIO'@'localhost'`.
+5. Crear una tabla donde se almacenarán los datos que se obtendrán:
+`create table clima (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, nombre VARCHAR (248) NOT NULL, temperatura FLOAT (4,2) NOT NULL, humedad INT (3) NOT NULL);`
+
+**Instalar nodos MySQL en Node Red**
+1.Dirigirse a la pestaña *Install* del menú *Manage Palett* e instalar el nodo llamado **node-red-node-mysql**.
+2. Agregar un nodo **function** que contenga el siguiente código:
+>msg.topic = "INSERT INTO clima (nombre,temperatura,humedad) VALUES ('" + msg.payload.id +"'," + msg.payload.temp + "," + msg.payload.hum + ");";
+
+>return msg;
+3. A su salida agregar un bloque **mysql** y configurarlo con la base de datos que se creó anteriormente.
+
+## Grafana
+**Instalar Grafana**
+1. Abrir una terminal y escribir los siguientes comandos, en el orden mostrado:
+`sudo apt-get install -y adduser libfontconfig1`
+
+`wget https://dl.grafana.com/enterprise/release/grafana-enterprise_9.1.4_amd64.deb`
+
+`sudo dpkg -i grafana-enterprise_9.1.4_amd64.deb`
+
+2. Una vez instalado, se debe abrir el programa, para ello, se deben ejecutar los siguientes comandos:
+
+`sudo /bin/systemctl daemon-reload`
+
+`sudo /bin/systemctl enable grafana-server`
+
+Para arrancarlo manualmente:
+
+`sudo /bin/systemctl start grafana-server`
+
+3. Abrir Grafana en el navegador con: localhost:3000
+4. Se deberá iniciar sesion:
+- User: admin
+- Password: admin
+
+5. Agregar una fuente de información
+- Configuraciones > Data Source
+- Hacer clic en el boton Add Data Source
+- Seleccionar la opción MySQL
+
+6. Configurar el DataSource de MySQL
+- Host: localhost:3306
+- Database: codigoIoT
+- User & Password: Nombre de usuario y contraseña generados para MySQL
+
+7. Crear un tablero
+8. Para colocar un tablero de Grafena a Node Red, se deberá colocar un bloque dashboard de cualquier tipo para hacer la representación visual, y pegar el Embed HTML de cada gráfica que se quiera mostrar de Grafana.
 5. Finalmente, dar click en el botón **Deploy** para que se actualicen los cambios. 
 
 ## Resultados
 Una vez completados los pasos anteriores se deberá ver abrir el dashboard, como se muestra a continuación:
 
-![Captura de pantalla]()
+![Captura de pantalla](Captura_1.png)
 
 El flow en Node Red debe verse como el mostrado a continuación:
 
-![Captura de pantalla]()
+![Captura de pantalla](Captura_2.png)
 
 ## Evidencias
 [Evidencia MySQL Clima]()
 
 ## Créditos
-Este ejercicio fue basado en los ejercicios que se encuentran en el repositorio [flow5-NodeRed]()
+Este ejercicio fue basado en los ejercicios que se encuentran en el repositorio [clima por API](https://github.com/hugoescalpelo/clima-mysql)
 
 Documentación realizada por [Karen Rosas](https://github.com/KarenRosas49)
